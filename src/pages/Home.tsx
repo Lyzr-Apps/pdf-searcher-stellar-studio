@@ -683,15 +683,6 @@ export default function Home() {
             className={`border-t ${isDarkMode ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'} p-6`}
           >
             <div className="max-w-4xl mx-auto">
-              {documents.length === 0 && messages.length === 0 && (
-                <div className="mb-4 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-start gap-3">
-                  <AlertCircle className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-blue-200">
-                    Upload PDF documents to get started with intelligent document search.
-                  </p>
-                </div>
-              )}
-
               <div className="space-y-3">
                 <div className="relative">
                   <Textarea
@@ -709,13 +700,13 @@ export default function Home() {
                         ? 'bg-slate-800 border-slate-700 text-slate-100 placeholder-slate-500'
                         : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400'
                     } focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent`}
-                    disabled={isLoading || documents.length === 0}
+                    disabled={isLoading}
                   />
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div className="text-xs text-slate-500">
-                    {documents.length === 0 && 'Upload documents to search'}
+                    {documents.length > 0 && `${documents.length} document(s) uploaded`}
                   </div>
                   <div className="flex gap-2">
                     {messages.length > 0 && (
@@ -731,7 +722,7 @@ export default function Home() {
                     )}
                     <Button
                       onClick={() => handleSubmit({ preventDefault: () => {} } as React.FormEvent)}
-                      disabled={isLoading || !input.trim() || documents.length === 0}
+                      disabled={isLoading || !input.trim()}
                       className="bg-purple-600 hover:bg-purple-700 text-white"
                     >
                       {isLoading ? (
